@@ -1,0 +1,168 @@
+options
+{
+  static = false;
+  DEBUG_LOOKAHEAD = false;	
+}
+
+PARSER_BEGIN(LALG)
+
+import java.io.*;
+
+public class LALG
+{
+  public static void main(String args []) throws ParseException
+  {
+	try
+	{
+	   LALG parser = new LALG(System.in);
+	   parser.start();
+    }
+     catch (Exception e)
+     {
+        System.out.println(e.getMessage());
+        return;
+      }
+      catch (Error e)
+      {
+        System.out.println(e.getMessage());
+        return;
+      }
+    
+  }
+}
+
+PARSER_END(LALG)
+
+SKIP : {
+ " "
+|  "\t"
+|  "\n"
+|  "\r"
+|  <"//" (~["\n","\r"])* ("\n" | "\r" | "\r\n")>
+|  <"/*" (~["*"])* "*" ("*" | ~["*","/"] (~["*"])* "*")* "/">
+}
+
+TOKEN : 
+{
+  < LBRACKET: "[" >
+| < RBRACKET: "]" >
+| < LBRACE: "{" >
+| < RBRACE: "}" >
+| < LPAREN : "(" >
+| < RPAREN : ")" >
+| < COMMA: "," >
+| < DOT: "." >
+}
+
+TOKEN:
+{
+  < QUOTMARK: "\"" >
+| < STRING : <QUOTMARK> (~["\""])* <QUOTMARK> >
+| < #DIGIT : [ "0"-"9" ] >
+| < NUMBER : (<DIGIT>)+("."(<DIGIT>)*)?|"."(<DIGIT>)+>
+| < NULL : "null">
+| < COLON: ":" >
+| < SEMICOLON : ";" >
+| < IF : "if" >
+| < ELSE : "else" >
+| < DEFINE : "define" >
+| < WHILE : "while" >
+| < FOR : "for" >
+| < BREAK : "break" >
+| < CONTINUE : "continue" >
+| < QUIT : "quit" >
+| < PRINT : "print" >
+| < IBASE : "ibase" >
+| < OBASE : "obase" >
+| < SCALE : "scale" >
+| < LAST : "last" >
+|  < ID: ["a"-"z","A"-"Z"] ( ["a"-"z","A"-"Z","0"-"9","_"] )* >
+}
+
+TOKEN:
+{
+  < PLUS : "+" >
+| < MINUS : "-" >
+| < MUL : "*" >
+| < DIV : "/" >
+| < MOD : "%" >
+| < OR : "||" >
+| < AND : "&&" >
+| < INC : "++" >
+| < DEC : "--" >
+| < POW : "^" >
+| < ASSIGN : "=" >
+| < PLUSASSIGN : "+=" >
+| < MINUSASSIGN : "-=" >
+| < MULSASSIGN : "*=" >
+| < DIVASSIGN : "/=" >
+| < MODASSIGN : "%=" >
+| < POWASSIGN : "^=" >
+| < EQUALS : "==" >
+| < GREATEREQUAL : ">=" >
+| < LESSEREQUAL : "<=" >
+| < NOTEQUAL : "!=" >
+| < GREATER : ">" >
+| < LESSER : "<" >
+| < NOT : "!" >
+
+}
+
+void start():{Token token;}
+{
+	(
+	token = <LBRACKET> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <RBRACKET> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <LBRACE> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <RBRACE> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <LPAREN> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <RPAREN> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <COMMA> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <ID> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <QUOTMARK> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <STRING> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <NUMBER> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <NULL> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <COLON> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <SEMICOLON> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <IF> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <ELSE> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <DEFINE> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <WHILE> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <FOR> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <BREAK> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <CONTINUE> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <QUIT> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <PRINT> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <IBASE> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <OBASE> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <SCALE> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <LAST> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <PLUS> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <MINUS> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <MUL> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <DIV> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <MOD> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <OR> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <AND> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <INC> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <DEC> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <POW> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <ASSIGN> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <PLUSASSIGN> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <MINUSASSIGN> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <MULSASSIGN> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <DIVASSIGN> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <MODASSIGN> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <POWASSIGN> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <EQUALS> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <GREATEREQUAL> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <LESSEREQUAL> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <NOTEQUAL> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <GREATER> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <LESSER> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <NOT> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	
+	)*
+	<EOF>
+}

@@ -1,1 +1,1 @@
-LALG
+Analisador Léxico da linguagem LALG, feito na disciplina de Linguagens de Programação e Compiladores
