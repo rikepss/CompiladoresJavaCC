@@ -1,27 +1,27 @@
-# Analisador Léxico da linguagem LALG, feito durante a disciplina de Linguagens de Programação e Compiladores
+# Analisador Léxico da linguagem LALG
+## Feito durante a disciplina de Linguagens de Programação e Compiladores
+### Requisitos
 
-***********************************
-			Requisitos
-***********************************
 
-JDK e Javacc instalados
+JDK e JavaCC instalados
 
-***********************************
-			Instalação 
-***********************************
+
+### Instalação 
 
 Download JDK: http://www.oracle.com/technetwork/pt/java/javase/downloads/jdk8-downloads-2133151.html 
 
+Adicione o JDK ao Path do sistema.
+
+----------------------------------------------------
+
 Download Javacc: https://javacc.org/download
+
 Adicione a pasta javacc-6.0/bin ao Path do sistema.*
 
-*A versão 6.0 não apresenta os scripts necessários para ser utilizado.
- Para isso, baixe a versão 5.0, e substitua o arquivo "javacc.jar" da versão 5.0 pelo "javacc.jar" da versão 6.0.
- Outra opção é apenas utilizar a versão 5.0.
+*A versão 6.0 não apresenta os scripts necessários para ser utilizada.
+Para isso, baixe a versão 5.0, e substitua o arquivo "javacc.jar" da versão 5.0 pelo "javacc.jar" da versão 6.0. Outra opção é apenas utilizar a versão 5.0.
  
-***********************************
-			Instruções
-***********************************
+### Instruções
 
 Caso queira apenas testar os exemplos, pule para a etapa 3 (caso o projeto já esteja compilado)
 
@@ -35,13 +35,14 @@ Caso queira apenas testar os exemplos, pule para a etapa 3 (caso o projeto já e
    
 3. No prompt de comando/terminal, execute o comando:
 >		"java LALG < exemploX.lalg"
-		(onde "exemploX" é o arquivo .lalg desejado)
+	(onde "exemploX" é o arquivo .lalg desejado)
 
-***********************************
-		  Desenvolvido por
-***********************************
+### Desenvolvido por 
 
 Anna Paula Pawlicka Maule  
+
 Henrique Pasquini Santos
+
 Guilherme Tomaz Torres Pinto
+
 Isadora Mendes de Souza
