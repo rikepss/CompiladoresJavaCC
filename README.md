@@ -14,7 +14,7 @@ Adicione o JDK ao Path do sistema.
 
 ----------------------------------------------------
 
-Download Javacc: https://javacc.org/download
+Download JavaCC: https://javacc.org/download
 
 Adicione o JavaCC ao Path do sistema.*
 
@@ -35,14 +35,14 @@ Caso queira apenas testar os exemplos, pule para a etapa 3 (caso o projeto já e
    
 3. No prompt de comando/terminal, execute o comando:
 >		"java LALG < exemploX.lalg"
-	(onde "exemploX" é o arquivo .lalg desejado)
+   (onde "exemploX" é o arquivo .lalg desejado)
 
 ### Desenvolvido por 
 
-Anna Paula Pawlicka Maule  
+>Anna Paula Pawlicka Maule  
 
-Henrique Pasquini Santos
+>Henrique Pasquini Santos
 
-Guilherme Tomaz Torres Pinto
+>Guilherme Tomaz Torres Pinto
 
-Isadora Mendes de Souza
+>Isadora Mendes de Souza
