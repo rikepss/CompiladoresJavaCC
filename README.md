@@ -16,10 +16,10 @@ Adicione o JDK ao Path do sistema.
 
 Download Javacc: https://javacc.org/download
 
-Adicione a pasta javacc-6.0/bin ao Path do sistema.*
+Adicione o JavaCC ao Path do sistema.*
 
 *A versão 6.0 não apresenta os scripts necessários para ser utilizada.
-Para isso, baixe a versão 5.0, e substitua o arquivo "javacc.jar" da versão 5.0 pelo "javacc.jar" da versão 6.0. Outra opção é apenas utilizar a versão 5.0.
+Para resolver isso, baixe a versão 5.0, e substitua o arquivo "javacc.jar" da versão 5.0 pelo "javacc.jar" da versão 6.0. Outra opção é apenas utilizar a versão 5.0.
  
 ### Instruções
 

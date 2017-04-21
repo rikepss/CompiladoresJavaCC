@@ -31,7 +31,7 @@ public interface LALGConstants {
   /** RegularExpression Id. */
   int DIGIT = 17;
   /** RegularExpression Id. */
-  int NUMBER = 18;
+  int NUM = 18;
   /** RegularExpression Id. */
   int NULL = 19;
   /** RegularExpression Id. */
@@ -138,7 +138,7 @@ public interface LALGConstants {
     "\"\\\"\"",
     "<STRING>",
     "<DIGIT>",
-    "<NUMBER>",
+    "<NUM>",
     "\"null\"",
     "\":\"",
     "\";\"",

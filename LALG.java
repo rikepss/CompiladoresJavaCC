@@ -36,7 +36,7 @@ public class LALG implements LALGConstants {
       case COMMA:
       case QUOTMARK:
       case STRING:
-      case NUMBER:
+      case NUM:
       case NULL:
       case COLON:
       case SEMICOLON:
@@ -136,8 +136,8 @@ System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  "
 System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
         break;
         }
-      case NUMBER:{
-        token = jj_consume_token(NUMBER);
+      case NUM:{
+        token = jj_consume_token(NUM);
 System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
         break;
         }

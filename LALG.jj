@@ -59,7 +59,7 @@ TOKEN:
   < QUOTMARK: "\"" >
 | < STRING : <QUOTMARK> (~["\""])* <QUOTMARK> >
 | < #DIGIT : [ "0"-"9" ] >
-| < NUMBER : (<DIGIT>)+("."(<DIGIT>)*)?|"."(<DIGIT>)+>
+| < NUM : (<DIGIT>)+("."(<DIGIT>)*)?|"."(<DIGIT>)+>
 | < NULL : "null">
 | < COLON: ":" >
 | < SEMICOLON : ";" >
@@ -121,7 +121,7 @@ void start():{Token token;}
 	|	token = <ID> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
 	|	token = <QUOTMARK> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
 	|	token = <STRING> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
-	|	token = <NUMBER> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <NUM> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
 	|	token = <NULL> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
 	|	token = <COLON> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
 	|	token = <SEMICOLON> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
