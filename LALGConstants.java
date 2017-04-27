@@ -9,111 +9,79 @@ public interface LALGConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int LBRACKET = 7;
+  int LPAREN = 5;
   /** RegularExpression Id. */
-  int RBRACKET = 8;
+  int RPAREN = 6;
   /** RegularExpression Id. */
-  int LBRACE = 9;
+  int COMMA = 7;
   /** RegularExpression Id. */
-  int RBRACE = 10;
+  int DOT = 8;
   /** RegularExpression Id. */
-  int LPAREN = 11;
+  int PROGRAM = 9;
   /** RegularExpression Id. */
-  int RPAREN = 12;
+  int VAR = 10;
   /** RegularExpression Id. */
-  int COMMA = 13;
+  int CONST = 11;
   /** RegularExpression Id. */
-  int DOT = 14;
+  int REAL = 12;
   /** RegularExpression Id. */
-  int QUOTMARK = 15;
+  int INTEGER = 13;
   /** RegularExpression Id. */
-  int STRING = 16;
+  int PROCEDURE = 14;
+  /** RegularExpression Id. */
+  int BEGIN = 15;
+  /** RegularExpression Id. */
+  int END = 16;
   /** RegularExpression Id. */
   int DIGIT = 17;
   /** RegularExpression Id. */
   int NUM = 18;
   /** RegularExpression Id. */
-  int NULL = 19;
+  int COLON = 19;
   /** RegularExpression Id. */
-  int COLON = 20;
+  int SEMICOLON = 20;
   /** RegularExpression Id. */
-  int SEMICOLON = 21;
+  int READ = 21;
   /** RegularExpression Id. */
-  int IF = 22;
+  int WRITE = 22;
   /** RegularExpression Id. */
-  int ELSE = 23;
+  int DO = 23;
   /** RegularExpression Id. */
-  int DEFINE = 24;
+  int IF = 24;
   /** RegularExpression Id. */
-  int WHILE = 25;
+  int THEN = 25;
   /** RegularExpression Id. */
-  int FOR = 26;
+  int ELSE = 26;
   /** RegularExpression Id. */
-  int BREAK = 27;
+  int WHILE = 27;
   /** RegularExpression Id. */
-  int CONTINUE = 28;
+  int FOR = 28;
   /** RegularExpression Id. */
-  int QUIT = 29;
+  int TO = 29;
   /** RegularExpression Id. */
-  int PRINT = 30;
+  int ID = 30;
   /** RegularExpression Id. */
-  int IBASE = 31;
+  int PLUS = 31;
   /** RegularExpression Id. */
-  int OBASE = 32;
+  int MINUS = 32;
   /** RegularExpression Id. */
-  int SCALE = 33;
+  int MUL = 33;
   /** RegularExpression Id. */
-  int LAST = 34;
+  int DIV = 34;
   /** RegularExpression Id. */
-  int ID = 35;
+  int ASSIGN = 35;
   /** RegularExpression Id. */
-  int PLUS = 36;
+  int EQUALS = 36;
   /** RegularExpression Id. */
-  int MINUS = 37;
+  int GREATEREQUAL = 37;
   /** RegularExpression Id. */
-  int MUL = 38;
+  int LESSEREQUAL = 38;
   /** RegularExpression Id. */
-  int DIV = 39;
+  int NOTEQUAL = 39;
   /** RegularExpression Id. */
-  int MOD = 40;
+  int GREATER = 40;
   /** RegularExpression Id. */
-  int OR = 41;
-  /** RegularExpression Id. */
-  int AND = 42;
-  /** RegularExpression Id. */
-  int INC = 43;
-  /** RegularExpression Id. */
-  int DEC = 44;
-  /** RegularExpression Id. */
-  int POW = 45;
-  /** RegularExpression Id. */
-  int ASSIGN = 46;
-  /** RegularExpression Id. */
-  int PLUSASSIGN = 47;
-  /** RegularExpression Id. */
-  int MINUSASSIGN = 48;
-  /** RegularExpression Id. */
-  int MULSASSIGN = 49;
-  /** RegularExpression Id. */
-  int DIVASSIGN = 50;
-  /** RegularExpression Id. */
-  int MODASSIGN = 51;
-  /** RegularExpression Id. */
-  int POWASSIGN = 52;
-  /** RegularExpression Id. */
-  int EQUALS = 53;
-  /** RegularExpression Id. */
-  int GREATEREQUAL = 54;
-  /** RegularExpression Id. */
-  int LESSEREQUAL = 55;
-  /** RegularExpression Id. */
-  int NOTEQUAL = 56;
-  /** RegularExpression Id. */
-  int GREATER = 57;
-  /** RegularExpression Id. */
-  int LESSER = 58;
-  /** RegularExpression Id. */
-  int NOT = 59;
+  int LESSER = 41;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -122,64 +90,46 @@ public interface LALGConstants {
   String[] tokenImage = {
     "<EOF>",
     "\" \"",
-    "\"\\t\"",
     "\"\\n\"",
     "\"\\r\"",
-    "<token of kind 5>",
-    "<token of kind 6>",
-    "\"[\"",
-    "\"]\"",
-    "\"{\"",
-    "\"}\"",
+    "<token of kind 4>",
     "\"(\"",
     "\")\"",
     "\",\"",
     "\".\"",
-    "\"\\\"\"",
-    "<STRING>",
+    "\"program\"",
+    "\"var\"",
+    "\"const\"",
+    "\"real\"",
+    "\"integer\"",
+    "\"procedure\"",
+    "\"begin\"",
+    "\"end\"",
     "<DIGIT>",
     "<NUM>",
-    "\"null\"",
     "\":\"",
     "\";\"",
+    "\"read\"",
+    "\"write\"",
+    "\"do\"",
     "\"if\"",
+    "\"then\"",
     "\"else\"",
-    "\"define\"",
     "\"while\"",
     "\"for\"",
-    "\"break\"",
-    "\"continue\"",
-    "\"quit\"",
-    "\"print\"",
-    "\"ibase\"",
-    "\"obase\"",
-    "\"scale\"",
-    "\"last\"",
+    "\"to\"",
     "<ID>",
     "\"+\"",
     "\"-\"",
     "\"*\"",
     "\"/\"",
-    "\"%\"",
-    "\"||\"",
-    "\"&&\"",
-    "\"++\"",
-    "\"--\"",
-    "\"^\"",
+    "\":=\"",
     "\"=\"",
-    "\"+=\"",
-    "\"-=\"",
-    "\"*=\"",
-    "\"/=\"",
-    "\"%=\"",
-    "\"^=\"",
-    "\"==\"",
     "\">=\"",
     "\"<=\"",
-    "\"!=\"",
+    "\"<>\"",
     "\">\"",
     "\"<\"",
-    "\"!\"",
   };
 
 }

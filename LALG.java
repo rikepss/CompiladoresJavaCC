@@ -3,81 +3,65 @@
 import java.io.*;
 
 public class LALG implements LALGConstants {
-  public static void main(String args []) throws ParseException
+  public static void main(String args [])
   {
         try
         {
            LALG parser = new LALG(System.in);
            parser.start();
     }
-     catch (Exception e)
+     catch (ParseException e)
      {
         System.out.println(e.getMessage());
-        return;
+                return;
       }
-      catch (Error e)
+      catch (TokenMgrError e)
       {
         System.out.println(e.getMessage());
-        return;
-      }
-
+                return;
+          }
   }
 
   final public void start() throws ParseException {Token token;
     label_1:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case LBRACKET:
-      case RBRACKET:
-      case LBRACE:
-      case RBRACE:
       case LPAREN:
       case RPAREN:
       case COMMA:
-      case QUOTMARK:
-      case STRING:
+      case DOT:
+      case PROGRAM:
+      case VAR:
+      case CONST:
+      case REAL:
+      case INTEGER:
+      case PROCEDURE:
+      case BEGIN:
+      case END:
       case NUM:
-      case NULL:
       case COLON:
       case SEMICOLON:
+      case READ:
+      case WRITE:
+      case DO:
       case IF:
+      case THEN:
       case ELSE:
-      case DEFINE:
       case WHILE:
       case FOR:
-      case BREAK:
-      case CONTINUE:
-      case QUIT:
-      case PRINT:
-      case IBASE:
-      case OBASE:
-      case SCALE:
-      case LAST:
+      case TO:
       case ID:
       case PLUS:
       case MINUS:
       case MUL:
       case DIV:
-      case MOD:
-      case OR:
-      case AND:
-      case INC:
-      case DEC:
-      case POW:
       case ASSIGN:
-      case PLUSASSIGN:
-      case MINUSASSIGN:
-      case MULSASSIGN:
-      case DIVASSIGN:
-      case MODASSIGN:
-      case POWASSIGN:
       case EQUALS:
       case GREATEREQUAL:
       case LESSEREQUAL:
       case NOTEQUAL:
       case GREATER:
-      case LESSER:
-      case NOT:{
+      case LESSER:{
         ;
         break;
         }
@@ -86,26 +70,6 @@ public class LALG implements LALGConstants {
         break label_1;
       }
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case LBRACKET:{
-        token = jj_consume_token(LBRACKET);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case RBRACKET:{
-        token = jj_consume_token(RBRACKET);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case LBRACE:{
-        token = jj_consume_token(LBRACE);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case RBRACE:{
-        token = jj_consume_token(RBRACE);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
       case LPAREN:{
         token = jj_consume_token(LPAREN);
 System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
@@ -121,28 +85,58 @@ System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  "
 System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
         break;
         }
+      case DOT:{
+        token = jj_consume_token(DOT);
+System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
+        break;
+        }
+      case PROGRAM:{
+        token = jj_consume_token(PROGRAM);
+System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
+        break;
+        }
+      case VAR:{
+        token = jj_consume_token(VAR);
+System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
+        break;
+        }
+      case CONST:{
+        token = jj_consume_token(CONST);
+System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
+        break;
+        }
+      case REAL:{
+        token = jj_consume_token(REAL);
+System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
+        break;
+        }
+      case INTEGER:{
+        token = jj_consume_token(INTEGER);
+System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
+        break;
+        }
+      case PROCEDURE:{
+        token = jj_consume_token(PROCEDURE);
+System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
+        break;
+        }
+      case BEGIN:{
+        token = jj_consume_token(BEGIN);
+System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
+        break;
+        }
+      case END:{
+        token = jj_consume_token(END);
+System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
+        break;
+        }
       case ID:{
         token = jj_consume_token(ID);
 System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
         break;
         }
-      case QUOTMARK:{
-        token = jj_consume_token(QUOTMARK);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case STRING:{
-        token = jj_consume_token(STRING);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
       case NUM:{
         token = jj_consume_token(NUM);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case NULL:{
-        token = jj_consume_token(NULL);
 System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
         break;
         }
@@ -156,18 +150,33 @@ System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  "
 System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
         break;
         }
+      case READ:{
+        token = jj_consume_token(READ);
+System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
+        break;
+        }
+      case WRITE:{
+        token = jj_consume_token(WRITE);
+System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
+        break;
+        }
+      case DO:{
+        token = jj_consume_token(DO);
+System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
+        break;
+        }
       case IF:{
         token = jj_consume_token(IF);
 System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
         break;
         }
-      case ELSE:{
-        token = jj_consume_token(ELSE);
+      case THEN:{
+        token = jj_consume_token(THEN);
 System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
         break;
         }
-      case DEFINE:{
-        token = jj_consume_token(DEFINE);
+      case ELSE:{
+        token = jj_consume_token(ELSE);
 System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
         break;
         }
@@ -181,43 +190,8 @@ System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  "
 System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
         break;
         }
-      case BREAK:{
-        token = jj_consume_token(BREAK);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case CONTINUE:{
-        token = jj_consume_token(CONTINUE);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case QUIT:{
-        token = jj_consume_token(QUIT);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case PRINT:{
-        token = jj_consume_token(PRINT);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case IBASE:{
-        token = jj_consume_token(IBASE);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case OBASE:{
-        token = jj_consume_token(OBASE);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case SCALE:{
-        token = jj_consume_token(SCALE);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case LAST:{
-        token = jj_consume_token(LAST);
+      case TO:{
+        token = jj_consume_token(TO);
 System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
         break;
         }
@@ -241,68 +215,8 @@ System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  "
 System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
         break;
         }
-      case MOD:{
-        token = jj_consume_token(MOD);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case OR:{
-        token = jj_consume_token(OR);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case AND:{
-        token = jj_consume_token(AND);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case INC:{
-        token = jj_consume_token(INC);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case DEC:{
-        token = jj_consume_token(DEC);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case POW:{
-        token = jj_consume_token(POW);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
       case ASSIGN:{
         token = jj_consume_token(ASSIGN);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case PLUSASSIGN:{
-        token = jj_consume_token(PLUSASSIGN);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case MINUSASSIGN:{
-        token = jj_consume_token(MINUSASSIGN);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case MULSASSIGN:{
-        token = jj_consume_token(MULSASSIGN);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case DIVASSIGN:{
-        token = jj_consume_token(DIVASSIGN);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case MODASSIGN:{
-        token = jj_consume_token(MODASSIGN);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
-      case POWASSIGN:{
-        token = jj_consume_token(POWASSIGN);
 System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
         break;
         }
@@ -336,11 +250,6 @@ System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  "
 System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
         break;
         }
-      case NOT:{
-        token = jj_consume_token(NOT);
-System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);
-        break;
-        }
       default:
         jj_la1[1] = jj_gen;
         jj_consume_token(-1);
@@ -367,10 +276,10 @@ System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  "
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0xfffdbf80,0xfffdbf80,};
+      jj_la1_0 = new int[] {0xfffdffe0,0xfffdffe0,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0xfffffff,0xfffffff,};
+      jj_la1_1 = new int[] {0x3ff,0x3ff,};
    }
 
   /** Constructor with InputStream. */
@@ -487,7 +396,7 @@ System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  "
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[60];
+    boolean[] la1tokens = new boolean[42];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -504,7 +413,7 @@ System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  "
         }
       }
     }
-    for (int i = 0; i < 60; i++) {
+    for (int i = 0; i < 42; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
