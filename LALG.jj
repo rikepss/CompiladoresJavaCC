@@ -36,7 +36,7 @@ SKIP : {
  " "
 |  "\n"
 |  "\r"
-|  <"{" (~["\n","\r"])* "}" ("\n" | "\r" | "\r\n")>
+|  <"{" (~["\n","\r"])* "}" ("\n" | "\r" | "\r\n")*>
 }
 
 TOKEN : 
@@ -58,7 +58,7 @@ TOKEN:
 | < BEGIN : "begin" >
 | < END : "end" >   
 | < #DIGIT : [ "0"-"9" ] >
-| < NUM : (<DIGIT>)+("."(<DIGIT>)*)?|"."(<DIGIT>)+>
+| < NUM : (<DIGIT>)+ | (<DIGIT>)+ "." (<DIGIT>)+ | "." (<DIGIT>)+ >
 | < COLON: ":" >
 | < SEMICOLON : ";" >
 | < READ : "read" >
@@ -128,7 +128,6 @@ void start():{Token token;}
 	|	token = <NOTEQUAL> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
 	|	token = <GREATER> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
 	|	token = <LESSER> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
-	
 	)*
 	<EOF>
 }
