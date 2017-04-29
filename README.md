@@ -34,8 +34,8 @@ Caso queira apenas testar os exemplos, pule para a etapa 3 (caso o projeto já e
    (ou execute o script compile.bat, no Windows)
    
 3. No prompt de comando/terminal, execute o comando:
->		"java LALG < exemploX.lalg"
-   (onde "exemploX" é o arquivo .lalg desejado)
+>		"java LALG < exemploX.txt"
+   (onde "exemploX" é o arquivo .txt desejado)
 
 ### Desenvolvido por 
 
