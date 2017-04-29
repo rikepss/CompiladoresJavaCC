@@ -3,7 +3,7 @@
 import java.io.*;
 
 public class LALG implements LALGConstants {
-  public static void main(String args [])
+  public static void main(String args []) throws ParseException
   {
         try
         {
