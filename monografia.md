@@ -20,13 +20,14 @@ A programacao em linguagens logicas é nao processual. Programas nessas linguage
 
 ## Perspectiva Historica 
  
-Foi criado em 1987 , é uma linguagem capaz de naturalmente expressar um conjunto de regras simples para implementar uma aplicação lógica.
+O  design do PROLOG foi criado em 1987 por Alain Colmerauer e Phillippe Roussel da Universidade de Aix-Marseille, e por Robert Kowalski da Universidade de Edinburgh. O primeiro interpretador de PROLOG foi desenvolvido em Marseille em 1972. O nome PROLOG veio da abreviacao de "Programacao Logica". A pesquisa do desenvolvimento da linguagem ficou focado em Marseille e Endiburgh ate 1981, quando o governo Japones anunciou o desenvolvimento do projeto chamado de "Fith Generation Computing Systems"(FGCS) e que o PROLOG foi a linguagem escolhida para ser a base deste projeto, cujo o objetivo era desenvolver maquinas inteligentes. Foi assim que o PROLOG ganhou visibilidade no mundo inteiro. Depois de uma decada, o projeto foi abandonado e poucas coisas significantes foram descobertas, assim levando uma linguagem de grande potencial ao declinio ( despopulirazao). 
 
-Prolog é uma linguagem declarativa, diferentemente de outras linguagens de programação. 
- 
+Apesar de tudo, PROLOG continua sendo a linguagem mais usada dentre as linguagens do paradigma logico. 
+
 ## Uso 
  
 * Prova de Theorema 
+
 * Expert Systems 
 * Type Inference Systems 
 * Planejamento Automatizado
