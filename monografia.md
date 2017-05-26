@@ -1,7 +1,7 @@
  
  
 # Paradigma lógico 
-conceitos do paradigma; perspectiva histórica; exemplo de aplicação; vantagens e desvantagens; linguagem PROLOG; fatos, regras e controle de corte; operadores e listas, etc. 
+>conceitos do paradigma; perspectiva histórica; exemplo de aplicação; vantagens e desvantagens; linguagem PROLOG; fatos, regras e controle de corte; operadores e listas, etc. >
  
 ## Funcional
   Baseado em declaração e aplicação de funções.  Todos os parâmetro de uma funcao precisam estar instanciados. CLara distinção entre entrada e saida Lógico Baseado no calculo de predicados.
@@ -31,7 +31,7 @@ Usado para tarefas específicas baseado em “rule base queries” com busca em 
 A linguagem lógica consegue representar o mundo (problema) de forma mais realista 
 Prolog consegue derivar novas regras atraves de regras contidas na base de conhecimento
  
-## Disvantagens
+## Desvantagens
 
 Pode ser muito difícil fazer o design de banco de dados que represente com acurácia a relação entre os dados.
 Nao é a melhor linguagem para resolver problemas computacionais aritméticos complexos
