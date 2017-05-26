@@ -20,20 +20,25 @@ A programacao em linguagens logicas é nao processual. Programas nessas linguage
 
 ## Perspectiva Historica 
  
-O  design do PROLOG foi criado em 1987 por Alain Colmerauer e Phillippe Roussel da Universidade de Aix-Marseille, e por Robert Kowalski da Universidade de Edinburgh. O primeiro interpretador de PROLOG foi desenvolvido em Marseille em 1972. O nome PROLOG veio da abreviacao de "Programacao Logica". A pesquisa do desenvolvimento da linguagem ficou focado em Marseille e Endiburgh ate 1981, quando o governo Japones anunciou o desenvolvimento do projeto chamado de "Fith Generation Computing Systems"(FGCS) e que o PROLOG foi a linguagem escolhida para ser a base deste projeto, cujo o objetivo era desenvolver maquinas inteligentes. Foi assim que o PROLOG ganhou visibilidade no mundo inteiro. Depois de uma decada, o projeto foi abandonado e poucas coisas significantes foram descobertas, assim levando uma linguagem de grande potencial ao declinio ( despopulirazao). 
+O  design do PROLOG foi criado em 1987 por Alain Colmerauer e Phillippe Roussel da Universidade de Aix-Marseille, e por Robert Kowalski da Universidade de Edinburgh. O primeiro interpretador de PROLOG foi desenvolvido em Marseille em 1972. O nome PROLOG veio da abreviacao de "Programacao Logica". A pesquisa do desenvolvimento da linguagem ficou focado em Marseille e Endiburgh ate 1981, quando o governo Japones anunciou o desenvolvimento do projeto chamado de "Fith Generation Computing Systems"(FGCS) e que o PROLOG foi a linguagem escolhida para ser a base deste projeto, cujo o objetivo era desenvolver maquinas inteligentes. Foi assim que o PROLOG ganhou visibilidade no mundo inteiro. Depois de uma decada, o projeto foi abandonado e poucas coisas significantes foram descobertas, assim levando uma linguagem de grande potencial ao declinio ( despopulirazacao). 
 
 Apesar de tudo, PROLOG continua sendo a linguagem mais usada dentre as linguagens do paradigma logico. 
 
 ## Uso 
  
-* Prova de Theorema 
+* Prova de Teorema 
 
 * Expert Systems 
+
 * Type Inference Systems 
+
 * Planejamento Automatizado
-* Processamento de Linguagem Natural `(Foi o intuito de desenvolvimento dessa linguagem)`
+
+* Processamento de Linguagem Natural
+
+O intuito do desenvolvimento da linguagem de logica foi para poder realizar processamento de linguagens naturais. 
  
-Usado para tarefas específicas baseado em “rule base queries” com busca em banco de dados, sistema de controle de voz, e preencher “templates” 
+Essa linguagem tambem pode ser usada para tarefas específicas baseado em “rule base queries” com busca em banco de dados, sistema de controle de voz, e preencher “templates”. 
  
 ## Vantagens
  
@@ -51,7 +56,30 @@ Prolog não serve muito bem para arquiteturas de computadores com execução seq
  “Constraints and coroutining attach rules to (changing) data. Combined with backtracking, this can be used to solve many complicated combinatorial problems using a simple declarative specification. Classical examples are puzzles and planning problems.”
  
 It provides semantic highlighting based on real time analysis of the code by the Prolog system itself. 
- 
+
+## Elementos Basicos de PROLOG
+
+### Termos 
+
+### Declaracao de Fatos 
+
+### Declaracao de Regras 
+
+### Declaracao de Objetivos 
+
+### Estrutura de Listas 
+
+## Deficiencias da Linguagem 
+
+### Resolucao de Controle de Ordem 
+
+### Assuncao de Mundo Fechado 
+
+### Problema de Negacao 
+
+### Limitacoes Intriscecas 
+
+
  
 ## Referencias:
 
