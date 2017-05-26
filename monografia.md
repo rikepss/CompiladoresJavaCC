@@ -1,7 +1,13 @@
  
  
 # Paradigma lógico 
->conceitos do paradigma; perspectiva histórica; exemplo de aplicação; vantagens e desvantagens; linguagem PROLOG; fatos, regras e controle de corte; operadores e listas, etc.
+> * Conceitos do paradigma
+  * Perspectiva histórica
+  * Exemplo de aplicação
+  * Vantagens e Desvantagens
+  * Linguagem PROLOG
+  * Fatos, Regras e Controle de Corte
+  * Operadores e lListas, etc.
  
 ## Funcional
   Baseado em declaração e aplicação de funções.  Todos os parâmetro de uma funcao precisam estar instanciados. CLara distinção entre entrada e saida Lógico Baseado no calculo de predicados.
