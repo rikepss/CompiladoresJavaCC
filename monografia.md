@@ -7,19 +7,17 @@
 >  * Vantagens e Desvantagens
 >  * Linguagem PROLOG
 >  * Fatos, Regras e Controle de Corte
->  * Operadores e lListas, etc.
+>  * Operadores e Listas, etc.
  
-## Funcional
-  Baseado em declaração e aplicação de funções.  Todos os parâmetro de uma funcao precisam estar instanciados. CLara distinção entre entrada e saida Lógico Baseado no calculo de predicados.
+## Conceitos do Paradigma Logico
+Programas logicos sao uma colecao de fatos e regras. O paradigma se basea em cálculo de predicados, objetos e suas relacoes.  A computação é feita usando um mecanismo de inferência, e de lógica.  A computação pode ser realizada com variáveis não instanciadas. As linguagens de programacao  logicas sao tambem conhecidas como linguages declarativas. Portanto, sua semantica tambem é declarativa. 
+
+O conceito da semantica declarativa é que tem um jeito simples de determinar o significado de cada afirmacao, e isso nao depende de como a afirmacao pode ser usada para resolver um problema. 
+
+## Perspectiva Historica 
  
-## Logico
- 
-cálculo de predicados, Objetos e relacoes.  A computação e’ feita usando um mecanismo de inferência, lógico,  A computação pode ser realizada com variáveis não instanciadas
- 
- 
-## Prolog
- 
-Foi criado em 1987 , e’ uma linguagem capaz de naturalmente expressar um conjunto de  regras simples para implementar uma aplicação lógica.
+Foi criado em 1987 , é uma linguagem capaz de naturalmente expressar um conjunto de regras simples para implementar uma aplicação lógica.
+
 Prolog é uma linguagem declarativa, diferentemente de outras linguagens de programação. 
  
 ## Uso 
