@@ -61,6 +61,14 @@ It provides semantic highlighting based on real time analysis of the code by the
 
 ### Termos 
 
+#### Atom 
+
+* Qualquer coisa entre aspas: `'O que voce queira'`
+* Sequencia de caracteres, numeros, simbolos seguidos de um caracter minusculo: `isto_Eh_um_Atomo`
+* Qualquer sequencia continua de simbolos:  `***$%+##`
+* Atomos especiais: `[]` `{}` `!` `;`
+
+
 ### Declaracao de Fatos 
 
 ### Declaracao de Regras 
