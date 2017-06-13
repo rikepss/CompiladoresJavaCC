@@ -1,0 +1,30 @@
+program nome2;
+{exemplo 2}
+var a: ; {Erro aqui}
+var b: integer;
+procedure nomep (x: real);
+var a, c: integer;
+begin
+re ad(c, a); {Erro aqui}
+if a<x+c then
+begin
+a:= c+x;
+write(a) {Erro aqui}
+end
+else c:= a+x;
+end;
+procere nomek (x: real); {Erro aqui}
+var a, c: integer;
+begin
+read(c, a) {Erro aqui}
+if a<x+c then
+begin
+a : c+x; {Erro aqui}
+write (a);
+end
+else c:= a+x;
+end;
+begin {programa principal}
+read(b);
+nomep(b);
+en d. {Erro aqui}

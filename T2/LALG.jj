@@ -1,0 +1,917 @@
+options
+{
+  STATIC = false;
+  DEBUG_LOOKAHEAD = false;
+}
+
+PARSER_BEGIN(LALG)
+
+import java.io.*;
+import java.util.*;
+
+public class LALG
+{
+	//Lista com os Tokens a serem buscados
+public List<String> nextTokenErr = new ArrayList<String>();
+	//Lista com os valores dos Tokens(Indice = valor)
+public List<String> tokensList =Arrays.asList("<EOF>", " ", "\n", "\r", "<token of kind 4>", "(", ")", ",", ".", "program", "var", "const", "real", "integer", "procedure", "begin", "end", "<DIGIT>", "<NUM_INT>", "<NUM_REAL>", ":", ";", "read", "write", "do", "if", "then", "else", "while", "for", "to", "<ID>", "+", "-", "*", "/", ":=", "=", ">=", "<=", "<>", ">", "<", "lambda");
+	//Lista de Tokens esperados
+public List<String> expectedToken = new ArrayList<String>();
+	//Numero de Erros do programa
+public static int Erros;
+
+  public static void main(String args []) throws ParseException
+  {
+
+  	LALG parser = new LALG(System.in);
+  	Erros = 0;
+	try
+	{
+	   //parser.analisador_lexico();
+		System.out.println("\nAnalise Sintatica: Iniciando\n");
+	   parser.analisador_sintatico();
+	   System.out.println("\nAnalise Sintatica: Completada com <"+Erros+"> Erros!");
+    }
+     catch (ParseException e)
+     {
+        System.out.println(e.getMessage());
+
+		return;
+      }
+      catch (TokenMgrError e)
+      {
+        System.out.println(e.getMessage());
+		return;
+	  }
+	  
+  }
+
+  public void errorRecovery() throws ParseException
+  {
+
+  	Token token = getToken(1);
+  	System.out.println("Erro! @(" + token.beginLine + "," + token.beginColumn + ")" +"\nEncontrado: " + token.image);
+	System.out.println("\tEsperado: "+expectedToken.get(0));		
+	//System.out.println("\tBuscar: "+nextTokenErr);
+
+  			ArrayList<Integer> kinds = new ArrayList<Integer>(); //Lista com os tipos dos Tokens a serem buscados
+
+  			for(int j = 0; j< nextTokenErr.size(); j++)//Compara as imagens dos Tokens buscados com o vetor de Tokens do parser
+  			{
+  				for(int i = 0; i< tokensList.size(); i++)
+  			  			{			
+  			  				int index;
+  			  				if((nextTokenErr.get(j)).equals(tokensList.get(i)))
+  			  				{
+  			  					kinds.add(i);
+  			  					break;
+  			  				}
+  			  			}
+  			 }
+
+  			int i = 1;
+  			token = getToken(i);
+
+			//System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" +"\n\tEncontrado:\n\t\t" + token.image);
+			
+  			//Busca os algum dos Tokens listados em kinds(Lista de valores dos Tokens Buscados)
+  			// e salva quantos Tokens serao consumidos, pois se acontecer nao tratavel na producao atual, talvez ele possa ser tratado na anterior e assim em diante.
+			while(!kinds.contains(token.kind))
+			{
+				if(token.kind == 0) //Verifica se é <EOF> para lancar a excecao para a producao anterior. So entra nesta condicao se <EOF> nao eh um Token buscado para recuperacao!
+				{	
+					//System.out.println("Erro! @(" + token.beginLine + "," + token.beginColumn + ")" +" - Esperado :\n\t\t"+Arrays.toString(nextTokenErr.toArray())+"\n\tEncontrado:\n\t\t" + token.image);
+					
+					//Limpa as listas de Buscados e Esperados
+					while(nextTokenErr.size() != 0)
+					{
+						nextTokenErr.remove(0);
+					}
+					while(expectedToken.size() != 0)
+					{
+						expectedToken.remove(0);
+					} 
+					//Lanca o erro para a producao anterior tratar
+					throw new ParseException();
+				}
+
+				i++;
+				token = getToken(i);
+				//System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" +"\n\tEncontrado:\n\t\t" + token.image);
+			}
+			//System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" +"\n\tEncontrado:\n\t\t" + token.image);
+			
+			Erros++;
+
+			//Limpa as listas de Buscados e Esperados
+			while(nextTokenErr.size() != 0)
+			{
+				nextTokenErr.remove(0);
+			}
+			while(expectedToken.size() != 0)
+			{
+				expectedToken.remove(0);
+			}
+
+			//Consome todos os Tokens que devem ser descartados
+			for(int j = 0; j<i-1; j++)
+			{
+				getNextToken();
+			}
+			//System.out.println("Erro recuperado, continuando...\n");
+  }
+}
+
+PARSER_END(LALG)
+
+SKIP : {
+ " "
+|  "\n"
+|  "\r"
+|  <"{" (~["\n","\r"])* "}" ("\n" | "\r" | "\r\n")*>
+}
+
+TOKEN : 
+{
+ < LPAREN : "(" >
+| < RPAREN : ")" >
+| < COMMA: "," >
+| < DOT: "." >
+}
+
+TOKEN:
+{
+ < PROGRAM : "program" > 
+| < VAR : "var" > 
+| < CONST : "const" > 
+| < REAL : "real" >
+| < INTEGER : "integer" >  
+| < PROCEDURE : "procedure" >
+| < BEGIN : "begin" >
+| < END : "end" >   
+| < #DIGIT : [ "0"-"9" ] >
+| < NUM_INT: (<DIGIT>)+ >
+| < NUM_REAL: (<DIGIT>)+ "." (<DIGIT>)+ >
+| < COLON: ":" >
+| < SEMICOLON : ";" >
+| < READ : "read" >
+| < WRITE : "write" >
+| < DO : "do" >   
+| < IF : "if" >
+| < THEN : "then" > 
+| < ELSE : "else" >
+| < WHILE : "while" >
+| < FOR : "for" >
+| < TO : "to" > 
+|  < ID: ["a"-"z","A"-"Z"] ( ["a"-"z","A"-"Z","0"-"9","_"] )* >
+}
+
+TOKEN:
+{
+  < PLUS : "+" >
+| < MINUS : "-" >
+| < MUL : "*" >
+| < DIV : "/" >
+| < ASSIGN : ":=" >
+| < EQUALS : "=" >
+| < GREATEREQUAL : ">=" >
+| < LESSEREQUAL : "<=" >
+| < NOTEQUAL : "<>" >
+| < GREATER : ">" >
+| < LESSER : "<" >
+
+}
+
+void analisador_lexico():{Token token;}
+{
+	(
+		token = <LPAREN> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <RPAREN> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <COMMA> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <DOT> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}	
+	|	token = <PROGRAM> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <VAR> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <CONST> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}	
+	|	token = <REAL> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <INTEGER> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <PROCEDURE> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <BEGIN> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}	
+	|	token = <END> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <ID> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <NUM_INT> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <NUM_REAL> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <COLON> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <SEMICOLON> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <READ> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <WRITE> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <DO> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <IF> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <THEN> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <ELSE> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <WHILE> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <FOR> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <TO> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <PLUS> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <MINUS> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <MUL> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <DIV> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <ASSIGN> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <EQUALS> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <GREATEREQUAL> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <LESSEREQUAL> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <NOTEQUAL> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <GREATER> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	|	token = <LESSER> {System.out.println("@(" + token.beginLine + "," + token.beginColumn + ")" + "  " + tokenImage[token.kind] + " - " + token.image);}
+	)*
+	<EOF>
+}
+
+
+void analisador_sintatico():
+{Token token;
+ }
+{
+	programa()
+}
+
+void programa():
+{}
+{
+	
+	try{
+		<PROGRAM>
+		<ID>
+		<SEMICOLON>
+	}catch(ParseException e){
+			//System.out.println("\nErro Programa");
+			nextTokenErr.add("const");//Sincronizacao
+			nextTokenErr.add("var");
+			nextTokenErr.add("procedure");
+			expectedToken.add("program, <ID> ou ;");
+			errorRecovery();
+	}
+
+	try{
+		corpo()
+		<DOT>
+		<EOF>
+	}catch(ParseException e){
+		//System.out.println("\nErro Programa");
+		nextTokenErr.add("<EOF>");//Follow
+		expectedToken.add(". ou <EOF>");
+		errorRecovery();
+	}
+}
+
+void corpo():
+{}
+{
+	try{
+		dc()
+		<BEGIN>
+	}
+		catch(ParseException e){
+			//System.out.println("\nErro Corpo");
+			nextTokenErr.add("read");//Sincronizacao
+			nextTokenErr.add("write");
+			nextTokenErr.add("while");
+			nextTokenErr.add("if");
+			nextTokenErr.add("<ID>");
+			nextTokenErr.add("for");
+			expectedToken.add("begin, const, var ou procedure");
+			errorRecovery();
+	}
+
+
+	try{
+		comandos()
+		<END>
+	}catch(ParseException e){
+		//System.out.println("\nErro Corpo");
+		nextTokenErr.add(".");//Follow
+		expectedToken.add("END");
+		errorRecovery();
+	}
+}
+
+void dc():
+{}
+{
+		try{
+			dc_c()
+			dc_v()
+			dc_p()
+		}catch(ParseException e){
+			//System.out.println("\nErro DC");
+			nextTokenErr.add("begin");//Follow
+			nextTokenErr.add(".");
+			expectedToken.add("begin");
+			errorRecovery();
+		}
+}
+
+void dc_c():
+{}
+{
+	(
+		try{
+			<CONST>
+			<ID>
+			<EQUALS>
+			numero()
+			<SEMICOLON>
+		}catch(ParseException e){
+			//System.out.println("\nErro Programa");
+			nextTokenErr.add("const");//Follow
+			nextTokenErr.add("var");
+			nextTokenErr.add("procedure");
+			nextTokenErr.add("begin");//Sincronizacao
+			expectedToken.add("=, ;");
+			errorRecovery();
+		}
+		
+		dc_c()
+	 )?
+}
+
+void dc_v():
+{}
+{
+	(
+		try{
+			<VAR>
+			variaveis()
+			<COLON>
+			tipo_var() 
+			<SEMICOLON>
+			dc_v()
+		}catch(ParseException e){
+			//System.out.println("\nErro DC_V"); 
+			nextTokenErr.add("procedure");
+			nextTokenErr.add("begin");
+			expectedToken.add(";, <ID>, integer, real ou ,");
+			errorRecovery();
+		}
+	)?
+}
+
+void tipo_var():
+{}
+{
+	try{
+		(<REAL>)|(<INTEGER>)
+	}catch(ParseException e){
+		//System.out.println("\nErro Tipo_Var"); 
+		nextTokenErr.add(";");//Follow
+		nextTokenErr.add(")");
+		nextTokenErr.add("procedure");
+		nextTokenErr.add("begin");
+		expectedToken.add("integer ou real");
+		errorRecovery();
+	}
+}
+
+void variaveis():
+{}
+{
+	try{
+		<ID> mais_var()
+	}catch(ParseException e){
+		//System.out.println("\nErro Variaveis"); 
+		nextTokenErr.add(":");//Follow
+		nextTokenErr.add(")");
+		nextTokenErr.add("procedure");
+		nextTokenErr.add("begin");
+		nextTokenErr.add(";");
+		nextTokenErr.add("else");
+
+		expectedToken.add("<ID>");
+		errorRecovery();
+	}
+}
+
+void mais_var():
+{}
+{
+
+	(
+		try{
+			<COMMA>
+			variaveis()
+		}catch(ParseException e){
+			//System.out.println("\nErro Mais_Var"); 
+			nextTokenErr.add(":");//Follow
+			nextTokenErr.add(")");
+			expectedToken.add(",");
+			errorRecovery();
+		}
+
+	)?
+}
+
+void dc_p():
+{}
+{
+	(
+		try{
+			<PROCEDURE>
+			<ID>
+		}catch(ParseException e){
+			//System.out.println("\nErro DC_P"); 
+			nextTokenErr.add(")");//Follow
+			expectedToken.add("procedure, <ID> ou ;");
+			errorRecovery();
+		}
+
+		try{
+			parametros() 
+			<SEMICOLON> 
+		}catch(ParseException e){
+			//System.out.println("\nErro DC_P"); 
+			nextTokenErr.add("begin");//Follow
+			expectedToken.add(";");
+			errorRecovery();
+		}
+		corpo_p() 
+		dc_p()
+	)?
+}
+
+void parametros():
+{}
+{
+	(
+		try{
+			<LPAREN>
+			lista_par() 
+			<RPAREN>
+		}catch(ParseException e){
+			//System.out.println("\nErro Parametros"); 
+			nextTokenErr.add(";");//Follow
+			nextTokenErr.add("begin");
+			expectedToken.add("( ou )");
+			errorRecovery();
+		}
+	)?
+}
+
+void lista_par():
+{}
+{
+	try{
+		variaveis()
+		<COLON>
+		tipo_var()
+		mais_par()
+	}catch(ParseException e){
+		//System.out.println("\nErro Lista_Par"); 
+		nextTokenErr.add(")");//Follow
+		expectedToken.add(")");
+		errorRecovery();
+	}
+}
+
+void mais_par():
+{}
+{
+	(
+		try{
+			<SEMICOLON> 
+			lista_par()
+		}catch(ParseException e){
+			//System.out.println("\nErro Mais_Par"); 
+			nextTokenErr.add(")");//Follow
+			expectedToken.add(")");
+			errorRecovery();
+		}
+	)?
+}
+
+void corpo_p():
+{}
+{	
+	try{
+		dc_loc() 
+		<BEGIN>
+		}catch(ParseException e){
+			//System.out.println("\nErro Corpo");
+			nextTokenErr.add("read");//Sincronizacao
+			nextTokenErr.add("write");
+			nextTokenErr.add("while");
+			nextTokenErr.add("if");
+			nextTokenErr.add("<ID>");
+			nextTokenErr.add("for");
+			expectedToken.add("begin, const, var ou procedure");
+			errorRecovery();
+		}
+
+	try{ 
+		comandos() 
+		<END> 
+		<SEMICOLON>
+	}catch(ParseException e){
+		//System.out.println("\nErro Corpo_P"); 
+		nextTokenErr.add("procedure");//Follow
+		nextTokenErr.add("begin");
+		expectedToken.add("END ou ;");
+		errorRecovery();
+	}
+}
+
+void dc_loc():
+{}
+{
+	try{
+		dc_v()
+	}catch(ParseException e){
+		//System.out.println("\nErro DC_Loc"); 
+		nextTokenErr.add("begin");//Follow
+		expectedToken.add("var, procedure ou const");
+		errorRecovery();
+	}
+}
+
+void lista_arg():
+{}
+{
+	(
+		try{
+			<LPAREN> 
+			argumentos() 
+			<RPAREN>
+		}catch(ParseException e){
+			//System.out.println("\nErro Lista_Arg"); 
+			nextTokenErr.add(";");//Follow
+			nextTokenErr.add("else");
+			expectedToken.add("( ou )");
+			errorRecovery();
+		}
+	)?
+}
+
+void argumentos():
+{}
+{
+	try{
+		<ID> mais_ident()
+	}catch(ParseException e){
+		//System.out.println("\nErro Argumentos"); 
+		nextTokenErr.add(")");//Follow
+		nextTokenErr.add(";");
+		nextTokenErr.add("else");
+		expectedToken.add("<ID>");
+		errorRecovery();
+	}
+	
+}
+
+void mais_ident():
+{}
+{
+	(
+		try{
+			<SEMICOLON>
+			argumentos()
+		}catch(ParseException e){
+		//System.out.println("\nErro Mais_Ident"); 
+		nextTokenErr.add(")");//Follow
+		expectedToken.add(";");
+		errorRecovery();
+	}
+		
+	)?
+}
+
+void pfalsa():
+{}
+{
+	try{
+		(LOOKAHEAD(2)<ELSE> cmd())?	
+	}catch(ParseException e){
+		//System.out.println("\nErro PFalsa"); 
+		nextTokenErr.add(";");//Follow
+		nextTokenErr.add("else");
+		expectedToken.add("else");
+		errorRecovery();
+	}
+	
+}
+
+void comandos():
+{}
+{
+
+	(	
+		try{
+			cmd()
+			<SEMICOLON>
+		}catch(ParseException e){
+			//System.out.println("\nErro Comandos"); 
+			nextTokenErr.add(";");//Sincronizacao
+			nextTokenErr.add("read");
+			nextTokenErr.add("write");
+			nextTokenErr.add("while");
+			nextTokenErr.add("if");
+			nextTokenErr.add("<ID>");
+			nextTokenErr.add("end");//Follow
+			nextTokenErr.add("else");
+			nextTokenErr.add("procedure");
+			nextTokenErr.add("begin");
+			expectedToken.add(";, else, :=, (, ), <ID>");
+			errorRecovery();
+		}	
+			comandos()
+	)?
+	
+
+}
+
+void cmd():
+{Token t;}
+{
+
+	try{
+		 (<READ><LPAREN> variaveis() <RPAREN>)
+		|(<WRITE> <LPAREN> variaveis() <RPAREN>)
+		|(<WHILE> <LPAREN> condicao() <RPAREN> <DO> cmd())
+		|(<IF> condicao() <THEN> cmd() pfalsa())
+		|(<BEGIN> comandos() <END>)
+		|(<ID> arg_exp())
+		|(<FOR> <ID> <ASSIGN> expressao() <TO> numero() <DO> <BEGIN> comandos() <END>)
+	}catch(ParseException e){
+		//System.out.println("\nErro Cmd"); 
+		nextTokenErr.add(";");//Follow
+		nextTokenErr.add("else");
+		expectedToken.add("read, write, while, if, <ID>, end, begin, :=, (, ), do, then, END ou to");
+		errorRecovery();
+	}
+
+}	
+
+void arg_exp():
+{}
+{
+	try{
+		(<ASSIGN> expressao()) | (lista_arg())
+	}catch(ParseException e){
+			//System.out.println("\nErro Arg_Exp"); 
+			nextTokenErr.add(";");//Follow
+			nextTokenErr.add("else");
+			expectedToken.add(":=");
+			errorRecovery();
+	}
+}
+
+void condicao():
+{}
+{
+	try{
+		expressao() relacao() expressao()
+	}catch(ParseException e){
+		//System.out.println("\nErro Condicao");
+		nextTokenErr.add(")");
+		nextTokenErr.add("then");
+		nextTokenErr.add(";");
+		nextTokenErr.add("else"); 
+		expectedToken.add("+, -, ident, numero_int, numero_real, =, <>, >=, <=, > ou <");
+		errorRecovery();
+	}
+}
+
+void relacao():
+{}
+{
+	try{
+		(<EQUALS>)
+		|(<GREATEREQUAL>)
+		|(<LESSEREQUAL>)
+		|(<NOTEQUAL>)
+		|(<GREATER>)
+		|(<LESSER>)
+	}catch(ParseException e){
+			//System.out.println("\nErro Relacao");
+			nextTokenErr.add("+");
+			nextTokenErr.add("-");
+			nextTokenErr.add("<ID>");
+			nextTokenErr.add("numero_int");
+			nextTokenErr.add("numero_real");
+			nextTokenErr.add(")");
+			nextTokenErr.add("then"); 
+			expectedToken.add("=, >=, <=, <>, > ou <");
+			errorRecovery();
+		}
+}
+
+void expressao():
+{}
+{
+	try{
+		termo() outros_termos()
+	}catch(ParseException e){
+		//System.out.println("\nErro Expressao");
+		nextTokenErr.add("=");
+		nextTokenErr.add("<>");
+		nextTokenErr.add(">=");
+		nextTokenErr.add("<=");
+		nextTokenErr.add(">");
+		nextTokenErr.add("<");
+		nextTokenErr.add("to");
+		nextTokenErr.add(")");
+		nextTokenErr.add("then");
+		nextTokenErr.add(";");
+		nextTokenErr.add("else");
+
+		nextTokenErr.add("*"); 
+		nextTokenErr.add("/"); 
+
+		expectedToken.add("+ ou -");
+		errorRecovery();
+	}
+
+}
+
+void op_un():
+{}
+{
+	((<PLUS>) | (<MINUS>))?
+}
+
+void outros_termos():
+{}
+{
+	try{
+		(op_ad() termo() outros_termos())?
+	}catch(ParseException e){
+		//System.out.println("\nErro Outros_Termos");
+		nextTokenErr.add("+");
+		nextTokenErr.add("-");
+		nextTokenErr.add("<ID>");
+		nextTokenErr.add("numero_int");
+		nextTokenErr.add("numero_real");
+		nextTokenErr.add("=");
+		nextTokenErr.add("<>");
+		nextTokenErr.add(">=");
+		nextTokenErr.add("<=");
+		nextTokenErr.add(">");
+		nextTokenErr.add("<");
+		nextTokenErr.add("to");
+		nextTokenErr.add(")");
+		nextTokenErr.add("then");
+		nextTokenErr.add(";");
+		nextTokenErr.add("else"); 
+
+		expectedToken.add("+, -, ident, numero int ou numero real");
+		errorRecovery();
+	}
+}
+
+void op_ad():
+{}
+{
+	try{
+		(<MINUS>) | (<PLUS>)
+	}catch(ParseException e){
+		//System.out.println("\nErro Op_Ad");
+		nextTokenErr.add("+");
+		nextTokenErr.add("-");
+		nextTokenErr.add("<ID>");
+		nextTokenErr.add("numero_int");
+		nextTokenErr.add("numero_real");
+		nextTokenErr.add("=");
+		nextTokenErr.add("<>");
+		nextTokenErr.add(">=");
+		nextTokenErr.add("<=");
+		nextTokenErr.add(">");
+		nextTokenErr.add("<");
+		nextTokenErr.add("to");
+		nextTokenErr.add(")");
+		nextTokenErr.add("then");
+		nextTokenErr.add(";");
+		nextTokenErr.add("else"); 
+
+		expectedToken.add("+ ou -");
+		errorRecovery();
+	}
+}
+
+void termo():
+{}
+{
+	try{
+		op_un() fator() mais_fatores()
+	}catch(ParseException e){
+		//System.out.println("\nErro Termo");
+		nextTokenErr.add("+");
+		nextTokenErr.add("-");
+		nextTokenErr.add("=");
+		nextTokenErr.add("<>");
+		nextTokenErr.add(">=");
+		nextTokenErr.add("<=");
+		nextTokenErr.add(">");
+		nextTokenErr.add("<");
+		nextTokenErr.add("to");
+		nextTokenErr.add(")");
+		nextTokenErr.add("then");
+		nextTokenErr.add(";");
+		nextTokenErr.add("else");
+
+		expectedToken.add("+, -, <ID>, (, )");
+		errorRecovery();
+	}
+}
+
+void mais_fatores():
+{}
+{
+	try{
+		(op_mul() fator() mais_fatores())?
+	}catch(ParseException e){
+		//System.out.println("\nErro Termo");
+		nextTokenErr.add("+");
+		nextTokenErr.add("-");
+		nextTokenErr.add("=");
+		nextTokenErr.add("<>");
+		nextTokenErr.add(">=");
+		nextTokenErr.add("<=");
+		nextTokenErr.add(">");
+		nextTokenErr.add("<");
+		nextTokenErr.add("to");
+		nextTokenErr.add(")");
+		nextTokenErr.add("then");
+		nextTokenErr.add(";");
+		nextTokenErr.add("else");
+
+		expectedToken.add("*, /, <ID>, (, )");
+		errorRecovery();
+	}
+}
+
+void op_mul():
+{}
+{
+	try{
+		(<MUL>) | (<DIV>)
+	}catch(ParseException e){
+		//System.out.println("\nErro Termo");
+		nextTokenErr.add("<ID>");
+		nextTokenErr.add("numero_int");
+		nextTokenErr.add("numero_real");
+		nextTokenErr.add("+");
+		nextTokenErr.add("-");
+		nextTokenErr.add("=");
+		nextTokenErr.add("<>");
+		nextTokenErr.add(">=");
+		nextTokenErr.add("<=");
+		nextTokenErr.add(">");
+		nextTokenErr.add("<");
+		nextTokenErr.add("to");
+		nextTokenErr.add(")");
+		nextTokenErr.add("then");
+		nextTokenErr.add(";");
+		nextTokenErr.add("else");
+
+		expectedToken.add("* ou /");
+		errorRecovery();
+	}
+}
+
+void fator():
+{}
+{
+	try{
+		(<ID>) | (numero()) | (<LPAREN> expressao() <RPAREN>)
+		}catch(ParseException e){
+			//System.out.println("\nErro Numero");
+			nextTokenErr.add("+");//Follow
+			nextTokenErr.add("-");
+			nextTokenErr.add("=");
+			nextTokenErr.add("<>");
+			nextTokenErr.add(">=");
+			nextTokenErr.add("<=");
+			nextTokenErr.add(">");
+			nextTokenErr.add("<");
+			nextTokenErr.add("to");
+			nextTokenErr.add(")");
+			nextTokenErr.add("then");
+			nextTokenErr.add(";");
+			nextTokenErr.add("else");
+			nextTokenErr.add("*");
+			nextTokenErr.add("/");
+	
+			expectedToken.add("<ID>, ( ou )");
+			errorRecovery();
+	}
+}
+
+void numero():
+{}
+{
+	try{
+		(<NUM_INT>)|(<NUM_REAL>)
+	}catch(ParseException e){
+		//System.out.println("\nErro Numero");
+		nextTokenErr.add(";");//Follow
+		expectedToken.add("<NUM_INT> ou <NUM_REAL>");
+		errorRecovery();
+	}
+}

@@ -1,0 +1,18 @@
+program ; {Erro aqui}
+{exemplo 1}
+var a, a1, b:  {Erro aqui}
+begin
+read(a);
+a1:= a1*; {Erro aqui}
+while (a1>0) do
+begin
+write(); {Erro aqui}
+a1:= a1-1;
+end;
+for b:=1 to 10 do
+begin
+b:=b+2;
+a:=a-1;
+end;
+if a<>  then wrie(a);{Erros aqui}
+end.
